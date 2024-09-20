@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.simplecoding.repositoryexam.mapper.basic.FaqMapper">
+	<select id="selectFaqList"
+			parameterType="Criteria"
+			resultType="FaqVO"
+			>
+		SELECT * FROM TB_FAQ
+		WHERE TITLE LIKE '%'|| #{searchKeyword} ||'%'
+		OFFSET #{firstIndex} ROWS
+		FETCH NEXT #{recordCountPerPage} ROWS ONLY
+	</select>
+<!-- 	테이블 개수 세기 -->
+	<select id="selectFaqListTotCnt"
+			parameterType="Criteria"
+			resultType="int"
+			>
+		SELECT COUNT(*) FROM TB_FAQ
+		WHERE TITLE LIKE '%' || #{searchKeyword} || '%'
+	</select>	
+	
+	
+	
+</mapper>

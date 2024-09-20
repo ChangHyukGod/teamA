@@ -1,0 +1,66 @@
+# 요약_고급.txt
+# 첨부파일 게시판(파일 업로드) 만들기(DB 이용) 
+# 1) DB 에 파일을 저장해서 사용하기 : 장점) sql 로 활용가능(관리가 쉬움)
+     => (1억 이상), 하드디스크 쌈
+     => 예제 진행
+  2) 폴더에 파일을 저장 + DB : 폴더 경로만 저장 : 장점) DB 용량 절약, 관리가 어렵슴
+     => AWS(아마존) 클라우드 : 여기에 저장함(아마존이 관리해줌)
+     
+# 파일 업로드
+# VO -> Mapper -> xml -> Service -> ServiceImpl -> Controller -> jsp
+# 1) 전체조회 : 
+### sql-mapper-config.xml : 객체 별명 지정  
+### 부서 게시판 만들기 참고 : 
+### 1-1) FileDbVO     : Criteria 객체 상속(페이징 객체)
+### 1-2) FileDbMapper : 인터페이스, 전체조회 함수명 정의
+### 1-3) FileDb.xml   : select sql 문 작성(전체조회)
+### 1-4) FileDbService : 인터페이스, 전체조회 함수명 정의
+### 1-5) FileDbServiceImpl : 위의 함수 재정의 , FileDbMapper 객체 함수 실행
+### 1-6) FileDbController : selectFileDbList 함수 작성
+                         매개변수 : searchVO, model 
+                         url    : /advanced/fileDb
+                         jsp    : advanced/fileDb/fileDb_all 
+    
+#  2) 추가 페이지 열기 : createFileDbView 코딩 -> jsp : add_fileDb 코딩
+    
+#  3) 저장 클릭시 실행 : 첨부파일(MultipartFile 객체)    
+###  3-1) FileDbVO 생략  :
+###  3-2) FileDbMapper  : 인터페이스 , insert 함수 작성   
+                        public int insert(FileDbVO fileDbVO);
+###  3-3) FileDb.xml    : insert 문 코딩(sql) 
+###  3-4) FileDbService :  insert 함수 작성
+                        void insertFileDb(FileDbVO fileDbVO) throws Exception;
+###  3-5) FileDbServiceImpl :  함수 재정의, FileDbMapper 객체의 insert 함수 실행
+                        void insertFileDb(FileDbVO fileDbVO) throws Exception;
+###  3-6) FileDbController :  FileDbService 객체의 insert 함수 실행, jsp 코딩
+                        @PostMapping("/advanced/fileDb/add")
+                        public String createFileDb(@RequestParam 이용 코딩)
+    
+4) 상세조회 + 그 첨부파일 jsp 전송 : 이미지 화면에 나옴
+###  4-1) FileDbVO 생략  :
+###  4-2) FileDbMapper  : 인터페이스 , selectFileDb 함수 작성   
+                        public FileDbVO selectFileDb(String uuid);
+###  4-3) FileDb.xml    : selectFileDb 문 코딩(sql)
+###  4-4) FileDbService : selectFileDb 함수 작성
+                        FileDbVO selectFileDb(String uuid) throws Exception;
+###  4-5) FileDbServiceImpl : 함수 재정의, FileDbMapper 객체의 selectFileDb 함수 실행
+                        FileDbVO selectFileDb(String uuid) throws Exception
+###  4-6) FileDbController : FileDbService 객체의 selectFileDb 함수 실행, jsp 코딩
+                       	findDownload() 함수 작성
+ 
+#	5) 삭제 버튼 클릭시 실행 : 
+		5-1) FileDbMapper	: 인터페이스, delete sql 함수명 작성
+						public int delete(String uuid);
+		5-2) FileDb.xml		: delete sql 작성
+						id = delete, par... = String
+		5-3) FileDbService	: 인터페이스, delete 함수명
+						void deleteFileDb(String uuid) throws Exception;
+		5-4) FileDbServiceImpl : 함수재정의, FileDbMapper 객체의 delete 함수 실행
+		5-5) FileDbController  : deleteFileDb() 에 FileDbService 객체의
+                               delete 함수 실행, 전체조회 강제 이동(jsp) 
+
+    
+    
+    
+    
+    

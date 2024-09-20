@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE form-validation PUBLIC 
+    "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1//EN" 
+    "http://jakarta.apache.org/commons/dtds/validator_1_1.dtd">
+
+<form-validation>
+   <formset>
+<!--        부서 폼의 input 태그 이름 유효성 체크 기능 추가
+             : required(필수입력)
+  사용법:<form name="대상VO객체">
+           <field property="input태그name속성명" depends="required">
+              <arg0 key="화면에보일값" />
+         </field>
+         
+         예: required(필수입력), integer(숫자), 등 (참고:validator-rules.xml)
+        </form>
+ -->
+
+
+       <form name="deptVO">
+           <field property="dname" depends="required">
+              <arg0 key="부서명" />
+         </field>
+           <field property="loc" depends="required">
+              <arg0 key="부서위치" />
+         </field>
+        </form>
+   </formset>
+
+</form-validation>

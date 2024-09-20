@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 자동 완성 : ctrl + enter -->
+<mapper namespace="com.simplecoding.repositoryexam.mapper.basic.EmpMapper">
+	<!-- 전체 조회 : -->
+	<select id="selectEmpList" 
+	        parameterType="Criteria" 
+	        resultType="EmpVo"
+	        >
+		SELECT * FROM TB_Emp
+		WHERE ENAME LIKE '%'|| #{searchKeyword} ||'%'
+		OFFSET #{firstIndex} ROWS
+		FETCH NEXT #{recordCountPerPage} ROWS ONLY
+	</select>
+	
+<!-- 	전체 사원 테이블 개수 세기 -->
+	<select id="selectEmpListTotCnt"
+			parameterType="Criteria"
+			resultType="int"
+			>
+		SELECT COUNT(*) FROM TB_EMP
+		WHERE eNAME LIKE '%' || #{searchKeyword} || '%'
+	</select>
+
+<insert id="insert" parameterType="EmpVO">
+      INSERT INTO TB_EMP(
+		ENO
+		, ENAME
+		, JOB
+		, MANAGER
+		, HIREDATE
+		, SALARY
+		, COMMISSION
+		, DNO
+		, INSERT_TIME
+		) 
+		VALUES(
+		SQ_EMP.NEXTVAL
+		,#{ename}
+		,#{job}
+		,#{manager}
+		,#{hiredate}
+		,#{salary}
+		,#{commission}
+		,#{dno}
+		,TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS')
+	)
+   </insert>
+<!-- 	상세조회 -->
+	<select id="selectEmp"
+			parameterType="int"
+			resultType="EmpVO"
+	>
+		SELECT * FROM TB_EMP
+		WHERE ENO = #{eno}
+	</select>
+	<update id="update" parameterType="EmpVO">
+		UPDATE TB_EMP
+    		SET ENAME = #{ename}
+        		,JOB  = #{job}
+		        ,MANAGER = #{manager}
+		        ,HIREDATE = #{hiredate}
+		        ,SALARY = #{salary}
+		        ,COMMISSION = #{commission}
+		        ,DNO = #{dno}
+		        ,UPDATE_TIME = TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS')
+		WHERE ENO = #{eno}
+	</update>
+	<delete id="delete" parameterType="EmpVO">
+		DELETE TB_EMP
+		WHERE ENO = #{eno}
+	</delete>
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <!-- Settings 설정 -->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="jdbcTypeForNull" value="NULL"/>
+    </settings>
+    
+    <!-- 별명 지정 -->
+    <typeAliases>
+        <typeAlias type="com.simplecoding.repositoryexam.vo.common.Criteria" alias="Criteria"/>
+        <typeAlias type="com.simplecoding.repositoryexam.vo.basic.DeptVO" alias="DeptVO"/>
+        <typeAlias type="com.simplecoding.repositoryexam.vo.basic.EmpVO" alias="EmpVO"/>
+        <typeAlias type="com.simplecoding.repositoryexam.vo.basic.FaqVO" alias="FaqVO"/>
+        <typeAlias type="com.simplecoding.repositoryexam.vo.advanced.FileDbVO" alias="FileDbVO"/>
+        <typeAlias type="com.simplecoding.repositoryexam.vo.advanced.GalleryVO" alias="GalleryVO"/>
+    </typeAliases>
+
+</configuration>
+
+
+
+
